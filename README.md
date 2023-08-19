@@ -1,6 +1,7 @@
-# openwrt-frp
+# 适用于amd64的openwrt-frp
  
 从[lede仓库](https://github.com/coolsnowwolf/packages/tree/master/net/frp)拉取的代码
+
 ## LEDE SDK下编译
 ```bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
