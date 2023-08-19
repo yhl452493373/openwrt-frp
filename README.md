@@ -1,6 +1,8 @@
 # 适用于amd64的openwrt-frp
  
-从[lede仓库](https://github.com/coolsnowwolf/packages/tree/master/net/frp)拉取的代码
+从[lede仓库](https://github.com/coolsnowwolf/packages/tree/master/net/frp)拉取的代码，除了改版本号为0.51.3，未作其他修改
+
+如果你是非amd64（x86-64）平台，请自行修改`FRP_URL`中与架构相关的部分，将`sdk_url`改为对应架构的sdk地址
 
 ## LEDE SDK下编译
 ```bash
