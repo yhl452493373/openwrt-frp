@@ -1,26 +1,31 @@
 # openwrt-frp
  
-从[lede仓库](https://github.com/coolsnowwolf/packages/tree/master/net/frp)拉取
-
-## 以下为在LEDE中的编译方式
-
-### 1、删除原有代码
+从[lede仓库](https://github.com/coolsnowwolf/packages/tree/master/net/frp)拉取的代码
+## LEDE SDK下编译
 ```bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+sdk_url=https://archive.openwrt.org/releases/21.02.6/targets/x86/64/openwrt-sdk-21.02.6-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+golang_commit=b6468a6bd5b61d811ae2567a9814aed44354e555
+golang_url=https://codeload.github.com/coolsnowwolf/packages/tar.gz/
+
+rm -rf sdk && mkdir sdk && curl "$sdk_url" | tar -xJ -C ./sdk --strip-components=1
+cd sdk
+./scripts/feeds update -a
+
+rm -rf feeds/packages/lang/golang
+curl "$golang_url$golang_commit" | tar -xz -C "feeds/packages/lang" --strip=2 "packages-$golang_commit/lang/golang"
+
 rm -rf feeds/packages/net/frp
-```
-
-### 2、拉取新代码
-```bash
 git clone https://github.com/yhl452493373/openwrt-frp.git feeds/packages/net/frp
-```
-
-### 3、更新到frp最新版源码
-```bash
 FRP_URL=$( curl -sL https://api.github.com/repos/fatedier/frp/releases | grep -P 'download/v[\d.]+/frp_[\d.]+_linux_amd64.tar.gz' | awk -F '"' '{print $4}' | awk 'NR==1{print}' )
 FRP_VERSION=$( echo $FRP_URL | awk -F '/' '{print $8}' | awk '{gsub(/v/,"");print $1}' )
 FRP_HASH=$( curl -sL https://codeload.github.com/fatedier/frp/tar.gz/v0.51.3 | sha256sum | awk -F ' ' '{print $1}' )
 sed -i -e 's/^PKG_VERSION.*/PKG_VERSION:='''$FRP_VERSION'''/' feeds/packages/net/frp/Makefile
 sed -i -e 's/^PKG_HASH.*/PKG_HASH:='''$FRP_HASH'''/' feeds/packages/net/frp/Makefile
-```
 
-### 4、执行`make menuconfig`，并在`Network`-`Web Servers/Proxies`选中`frpc`，然后编译
+./scripts/feeds install -a
+make defconfig
+make package/frp/clean
+make package/frp/compile V=s
+```
+编译后，在 `bin/packages/x86_64/packages` 下
