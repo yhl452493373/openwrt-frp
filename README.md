@@ -1,4 +1,4 @@
-# 适用于amd64（x86_64）的openwrt-frp
+# 适用于amd64（x86_64）平台lede的frp
  
 从[lede仓库](https://github.com/coolsnowwolf/packages/tree/master/net/frp)拉取的代码，除了改版本号为0.51.3，未作其他修改
 
