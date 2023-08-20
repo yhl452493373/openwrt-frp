@@ -2,7 +2,7 @@
  
 从[lede仓库](https://github.com/coolsnowwolf/packages/tree/master/net/frp)拉取的代码，除了改版本号为0.51.3，未作其他修改
 
-如果你是非amd64（x86_64）平台，请自行修改`FRP_URL`中与架构相关的部分，将`sdk_url`改为对应架构的sdk地址
+如果你是非amd64（x86_64）平台，请自行修改`FRP_URL`中与架构相关的部分，将`sdk_url`改为对应架构的sdk地址。此包只提供一个安装到/usr/bin/下的`frps`或`frpc`，界面可以用[我的](https://github.com/yhl452493373/luci-app-frpc)，也可以用lede官方的，或者[kuoruan](https://github.com/kuoruan/luci-app-frpc)的。
 
 ## LEDE SDK下编译
 ```bash
